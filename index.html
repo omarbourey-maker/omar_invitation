@@ -257,7 +257,7 @@ body{
       <h3>اكتب كلمة حلوة للعرسان 💌</h3>
       <p class="s">رسالتك هتوصل لعمر وفراولة</p>
       <form id="wishForm">
-        <input id="wName" name="name" type="text" placeholder="اسمك" maxlength="60" required>
+        <input id="wName" name="name" type="text" placeholder="اسمك (إجباري)" maxlength="60" minlength="2" required>
         <textarea id="wMsg" name="message" placeholder="رسالتك…" maxlength="600" required></textarea>
         <button class="btn main" id="wBtn" type="submit">ابعت الرسالة 🤍</button>
         <div class="msg" id="wStatus" role="status"></div>
@@ -336,7 +336,8 @@ const wf=document.getElementById('wishForm'),wBtn=document.getElementById('wBtn'
 wf.addEventListener('submit',async e=>{
   e.preventDefault();
   const name=wName.value.trim(),message=wMsg.value.trim();
-  if(!name||!message){wStatus.textContent='اكتب اسمك ورسالتك الأول';return}
+  if(name.length<2){wStatus.textContent='لازم تكتب اسمك الأول';wName.focus();return}
+  if(!message){wStatus.textContent='اكتب رسالتك الأول';wMsg.focus();return}
   if(!API_URL){wStatus.textContent='الإرسال لسه مش متوصل';return}
   wBtn.disabled=true;wStatus.textContent='بنبعت…';
   try{
